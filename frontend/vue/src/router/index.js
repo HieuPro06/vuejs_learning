@@ -1,0 +1,37 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/products',
+    name: 'products',
+    component: () => import('../views/products/List.vue')
+  },
+  {
+    path: '/product/create',
+    name: 'product.create',
+    component: () => import('../views/products/Form.vue')
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import('../views/users/List.vue')
+  },
+  {
+    path: '/user/create',
+    name: 'users.create',
+    component: () => import('../views/users/Form.vue')
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+export default router

@@ -1,28 +1,16 @@
 {
   "products": [
     {
-      "name": "Test product 3 (test edit)",
-      "price": "5000000",
-      "description": "product 3",
-      "id": "xWbk1Ck9-ba7uQZZiFxpL"
+      "name": "samsung galaxy note 8",
+      "price": "3000000000",
+      "description": "fdfsdfsdfdas",
+      "id": "pJD59V3AMeBA89fUfnWpW"
     },
     {
-      "name": "5645645",
-      "price": "645645",
-      "description": "65466546",
-      "id": "rovKMQRGxpAUUQet_dE7W"
-    },
-    {
-      "name": "ádasd",
-      "price": "234234",
-      "description": "sdsadas",
-      "id": "7A3folJnaRJJzsaHWAZ81"
-    },
-    {
-      "name": "Iphone 12",
-      "price": "25000000",
-      "description": "Thông tin chi tiết sản phẩm Iphone 12",
-      "id": "oPSzE11HGgfcH0LJ4aSfd"
+      "name": "samsung galaxy note 7",
+      "price": "7000000000",
+      "description": "fdfsdfsdfdas",
+      "id": "rTe4pNTUvXtLUeS_aAKMQ"
     }
   ],
   "users": [

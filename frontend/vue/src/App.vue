@@ -15,7 +15,7 @@
     </nav>
     <a class="btn btn-outline-primary" routerlink="cart">Administrator</a>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>

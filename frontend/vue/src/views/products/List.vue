@@ -16,23 +16,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                  <tr v-for="(product,index) in products">
+                    <th scope="row">{{index + 1}}</th>
+                    <td>{{ product.name}}</td>
+                    <td>{{ product.price}}</td>
+                    <td>
+                      <router-link :to="{ name: 'product.edit', params: {id: product.id}}">
+                        <button class="btn btn-primary mr-1">Edit</button>
+                      </router-link>
+                      <button @click="this.delete(product.id)" class="btn btn-danger">Delete</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -40,3 +33,34 @@
           </div>
     </div>
 </template>
+
+<script>
+import router from '@/router';
+
+export default {
+  data() {
+    return {
+      products: []
+    }
+  },
+  created() {
+    this.getAll();
+  },
+  methods: {
+    getAll() {
+      this.$request.get('http://localhost:8000/api/products').then(res => {
+        this.products = res.data;
+      })
+    },
+    delete(id) {
+      this.$request.delete(`http://localhost:8000/api/products/${id}`).then(res => {
+        if(res.data.success){
+          this.getAll();
+        } else {
+          alert("Can't delete this product")
+        }
+      })
+    }
+  }
+}
+</script>

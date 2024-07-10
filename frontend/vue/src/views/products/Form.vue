@@ -11,7 +11,7 @@
                     <label for="inputPassword" class="col-sm-3 col-form-label">Product name</label>
                     <div class="col-sm-9">
                         <input v-bind:class="{ 'is-invalid': error.name }" type="text" class="form-control"
-                            @blur="validation()" v-model="product.name" />
+                            @blur="validation()" v-model="product.name" placeholder="Enter product name...." />
                         <i style="display: block;" class="text-left text-xs text-red-500">{{ error.name }}</i>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <label for="inputPassword" class="col-sm-3 col-form-label">Product price</label>
                     <div class="col-sm-9">
                         <input v-bind:class="{ 'is-invalid': error.price }" type="text" class="form-control"
-                            v-model="product.price" />
+                            v-model="product.price" placeholder="Enter product price...." />
                         <i style="display: block;" class="text-left text-xs text-red-500">{{ error.price }}</i>
                     </div>
                 </div>
@@ -43,6 +43,8 @@
     </div>
 </template>
 <script>
+import router from '@/router';
+
 export default {
     // name: 'ProductForm',
     data() {
@@ -55,9 +57,14 @@ export default {
             product: {
                 name: '',
                 price: '',
-                description: ''
+                description: '',
+                id: ''
             }
         }
+    },
+    created() {
+        const params = this.$route.params;
+        this.getProduct(params.id);  
     },
     methods: {
         validation() {
@@ -83,9 +90,32 @@ export default {
             }
         },
         save() {
-            if (this.validation()) {
-
+            const id = this.$route.params.id;
+            // if (this.validation()) {
+            if(id){
+                this.$request.put(`http://localhost:8000/api/products/${id}`,this.product).then(res => {
+                    if(res.data.success){
+                        this.$router.push({name: 'products'});
+                    } else {
+                        alert('Something went wrong!')
+                    }
+                })
+            } else {
+                this.$request.post('http://localhost:8000/api/products',this.product).then(res => {
+                    if(res.data.success){
+                        this.$router.push({name: 'products'});
+                    } else {
+                        alert('Something went wrong!')
+                    }
+                })
             }
+                
+            // }
+        },
+        getProduct(id) {
+            this.$request.get(`http://localhost:8000/api/products/${id}`).then(res => {
+                this.product = {...res.data};
+            }) 
         }
     }
 }
